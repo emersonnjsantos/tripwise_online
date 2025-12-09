@@ -1,69 +1,77 @@
 /**
- * Mega Menu Component
- * Carrega e inicializa o mega menu dropdown
+ * Mega Menu Controller
+ * Controla múltiplos mega menus com click ao invés de hover
  */
+document.addEventListener('DOMContentLoaded', function () {
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Carregar o mega menu HTML
-    loadMegaMenu();
-});
-
-/**
- * Carrega o conteúdo do mega menu do arquivo externo
- */
-async function loadMegaMenu() {
-    const container = document.getElementById('mega-menu-container');
-    
-    if (!container) {
-        console.warn('Mega menu container not found');
-        return;
+    // Função para fechar todos os menus
+    function closeAllMenus() {
+        document.querySelectorAll('.mega-menu').forEach(function (menu) {
+            menu.classList.remove('open');
+        });
+        document.querySelectorAll('.nav-dropdown-btn').forEach(function (btn) {
+            btn.classList.remove('active');
+        });
     }
 
-    try {
-        const response = await fetch('components/mega-menu.html');
-        if (response.ok) {
-            const html = await response.text();
-            container.innerHTML = html;
-            initMegaMenuEvents();
-        } else {
-            console.error('Failed to load mega menu:', response.status);
+    // Configurar todos os mega menus automaticamente
+    var dropdownContainers = document.querySelectorAll('.nav-dropdown-container');
+
+    dropdownContainers.forEach(function (container) {
+        var btn = container.querySelector('.nav-dropdown-btn');
+        var menu = container.querySelector('.mega-menu');
+
+        if (btn && menu) {
+            // Toggle menu ao clicar no botão
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                var isOpen = menu.classList.contains('open');
+
+                // Fechar todos os outros menus primeiro
+                closeAllMenus();
+
+                // Se não estava aberto, abrir este menu
+                if (!isOpen) {
+                    menu.classList.add('open');
+                    btn.classList.add('active');
+                }
+            });
+
+            // Manter menu aberto ao clicar dentro dele
+            menu.addEventListener('click', function (e) {
+                e.stopPropagation();
+            });
+
+            // Fechar menu ao clicar em um link dentro dele
+            var menuLinks = menu.querySelectorAll('a');
+            menuLinks.forEach(function (link) {
+                link.addEventListener('click', function () {
+                    closeAllMenus();
+                });
+            });
         }
-    } catch (error) {
-        console.error('Error loading mega menu:', error);
-    }
-}
-
-/**
- * Inicializa eventos do mega menu
- */
-function initMegaMenuEvents() {
-    const megaMenu = document.querySelector('.mega-menu');
-    const dropdownBtn = document.querySelector('.nav-dropdown-btn');
-    
-    if (!megaMenu || !dropdownBtn) return;
+    });
 
     // Fechar menu ao clicar fora
-    document.addEventListener('click', function(e) {
-        if (!e.target.closest('.nav-dropdown-container')) {
-            megaMenu.classList.remove('active');
-        }
-    });
-
-    // Acessibilidade: fechar com ESC
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            megaMenu.classList.remove('active');
-            dropdownBtn.focus();
-        }
-    });
-
-    // Analytics: rastrear cliques nos itens do menu
-    const menuItems = document.querySelectorAll('.mega-menu-item, .featured-resource');
-    menuItems.forEach(item => {
-        item.addEventListener('click', function() {
-            const itemName = this.querySelector('h5')?.textContent || 'Unknown';
-            console.log('Menu item clicked:', itemName);
-            // Aqui você pode adicionar tracking analytics
+    document.addEventListener('click', function (e) {
+        var clickedInsideMenu = false;
+        document.querySelectorAll('.nav-dropdown-container').forEach(function (container) {
+            if (container.contains(e.target)) {
+                clickedInsideMenu = true;
+            }
         });
+
+        if (!clickedInsideMenu) {
+            closeAllMenus();
+        }
     });
-}
+
+    // Fechar menu ao pressionar ESC
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+            closeAllMenus();
+        }
+    });
+});
