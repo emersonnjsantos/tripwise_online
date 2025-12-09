@@ -1,0 +1,879 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Deeto - Plataforma de customer advocacy e referencias.">
+    <title>Deeto | Customer Advocacy Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Mega Menu CSS Externo -->
+    <link rel="stylesheet" href="css/mega-menu.css">
+    <!-- Mobile Drawer CSS -->
+    <link rel="stylesheet" href="css/mobile-drawer.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: { colors: { primary: '#EDEAE1', accent: '#FFA231', dark: '#1f2937', wine: '#4a1d1f' }, fontFamily: { inter: ['Inter', 'sans-serif'] } } } }
+    </script>
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #EDEAE1 !important;
+        }
+
+        /* Marquee */
+        .logo-marquee-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .logo-marquee-container::before,
+        .logo-marquee-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 150px;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .logo-marquee-container::before {
+            left: 0;
+            background: linear-gradient(to right, #EDEAE1, transparent);
+        }
+
+        .logo-marquee-container::after {
+            right: 0;
+            background: linear-gradient(to left, #EDEAE1, transparent);
+        }
+
+        .logo-marquee {
+            display: flex;
+            align-items: center;
+            gap: 80px;
+            animation: marquee 12s linear infinite;
+            width: max-content;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .logo-item {
+            flex-shrink: 0;
+            opacity: 0.6;
+        }
+
+        /* SCROLL-LOCKED FEATURES SECTION */
+        .features-section {
+            position: relative;
+            min-height: 500vh;
+        }
+
+        .features-sticky-container {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 20px 0;
+            overflow: hidden;
+        }
+
+        .features-content {
+            display: flex;
+            gap: 60px;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .image-side {
+            flex: 0 0 45%;
+        }
+
+        .text-side {
+            flex: 0 0 55%;
+        }
+
+        .feature-image-container {
+            position: relative;
+            min-height: 550px;
+            min-width: 380px;
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-image-container::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 6%;
+            width: 88%;
+            height: 80%;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            border-radius: 12px;
+            pointer-events: none;
+            z-index: 15;
+        }
+
+        .feature-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .feature-image.active {
+            opacity: 1;
+        }
+
+        .role-badge {
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 10px 28px;
+            border-radius: 24px;
+            font-weight: 600;
+            font-size: 15px;
+            color: #1f2937;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            z-index: 20;
+        }
+
+        .feature-item {
+            padding: 20px 0;
+            opacity: 0.3;
+            transition: all 0.4s ease-in-out;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+
+        .feature-item.active {
+            opacity: 1;
+        }
+
+        .feature-item.active .feature-title {
+            color: #4a1d1f;
+        }
+
+        .feature-item.active .feature-arrow {
+            transform: rotate(90deg);
+            color: #4a1d1f;
+        }
+
+        .feature-title {
+            color: #374151;
+            transition: color 0.4s ease-in-out;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .feature-arrow {
+            transition: all 0.4s ease-in-out;
+        }
+
+        .feature-desc {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.4s ease-in-out;
+        }
+
+        .feature-item.active .feature-desc {
+            max-height: 100px;
+            opacity: 1;
+            margin-top: 8px;
+        }
+
+        /* HOW IT WORKS */
+        .how-accordion-item {
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            background: rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .how-accordion-item.active {
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .how-accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .how-arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .how-accordion-item.active .how-arrow {
+            transform: rotate(180deg);
+        }
+
+        .how-accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .how-accordion-item.active .how-accordion-content {
+            max-height: 200px;
+            opacity: 1;
+            margin-top: 12px;
+        }
+
+        @media (max-width: 991px) {
+            .features-section {
+                min-height: 250vh;
+            }
+
+            .features-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .image-side,
+            .text-side {
+                flex: 1 1 100%;
+            }
+
+            .feature-image-container {
+                min-height: 350px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <nav style="background-color: #EDEAE1;">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="#" class="text-3xl font-bold text-gray-900 no-underline tracking-tight">deeto</a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex items-center gap-8">
+                    <!-- PRODUTO DROPDOWN -->
+                    <div class="nav-dropdown-container">
+                        <button
+                            class="nav-dropdown-btn flex items-center gap-1.5 text-gray-800 hover:text-gray-600 font-medium transition-colors py-2">
+                            Produto
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <!-- MEGA MENU -->
+                        <div class="mega-menu" id="mega-menu-container">
+                            <div class="mega-menu-grid">
+                                <div class="mega-menu-column">
+                                    <h4>Módulos centrais</h4>
+                                    <a href="#coletar" class="mega-menu-item">
+                                        <div class="mega-menu-icon collect"><img src="assets/icons/mic-ai-fill.svg"
+                                                alt="Coletar" width="24" height="24"></div>
+                                        <div class="mega-menu-item-content">
+                                            <h5>Coletar</h5>
+                                            <p>Transformar sinais em engajamento</p>
+                                        </div>
+                                    </a>
+                                    <a href="#gerir" class="mega-menu-item">
+                                        <div class="mega-menu-icon manage"><img
+                                                src="assets/icons/hand-sparkles-solid-full.svg" alt="Gerir" width="24"
+                                                height="24"></div>
+                                        <div class="mega-menu-item-content">
+                                            <h5>Gerir</h5>
+                                            <p>Organize todas as vozes dos clientes</p>
+                                        </div>
+                                    </a>
+                                    <a href="#distribuir" class="mega-menu-item">
+                                        <div class="mega-menu-icon distribute"><img
+                                                src="assets/icons/megaphone-fill.svg" alt="Distribuir" width="24"
+                                                height="24"></div>
+                                        <div class="mega-menu-item-content">
+                                            <h5>Distribuir</h5>
+                                            <p>Conectar compradores com vozes de pares</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="mega-menu-column">
+                                    <h4>Plataforma</h4>
+                                    <a href="#integrar" class="mega-menu-item">
+                                        <div class="mega-menu-icon integrate"><img src="assets/icons/hub.svg"
+                                                alt="Integrar" width="24" height="24"></div>
+                                        <div class="mega-menu-item-content">
+                                            <h5>Integrar</h5>
+                                            <p>Conecte-se com ferramentas centrais</p>
+                                        </div>
+                                    </a>
+                                    <a href="#seguro" class="mega-menu-item">
+                                        <div class="mega-menu-icon secure"><img src="assets/icons/verified.svg"
+                                                alt="Seguro" width="24" height="24"></div>
+                                        <div class="mega-menu-item-content">
+                                            <h5>Seguro</h5>
+                                            <p>Proteger os dados e construir confiança</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="mega-menu-column">
+                                    <h4>Recursos em destaque</h4>
+                                    <a href="#recurso1" class="featured-resource">
+                                        <img src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=160&h=120&fit=crop"
+                                            alt="Guia" class="featured-resource-image">
+                                        <div class="featured-resource-content">
+                                            <h5>O Guia Completo: Compradores Não Confiam em Bots</h5>
+                                            <span class="featured-resource-link">Vista →</span>
+                                        </div>
+                                    </a>
+                                    <a href="#recurso2" class="featured-resource">
+                                        <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=160&h=120&fit=crop"
+                                            alt="Webinar" class="featured-resource-image">
+                                        <div class="featured-resource-content">
+                                            <h5>Webinar: Como a Autenticidade Vence</h5>
+                                            <span class="featured-resource-link">Vista →</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button
+                        class="flex items-center gap-1.5 text-gray-800 hover:text-gray-600 font-medium transition-colors py-2">
+                        Soluções
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
+                    </button>
+                    <a href="#hub"
+                        class="text-gray-800 hover:text-gray-600 font-medium no-underline transition-colors">Deeto
+                        Hub</a>
+                    <a href="#about"
+                        class="text-gray-800 hover:text-gray-600 font-medium no-underline transition-colors">Companhia</a>
+                </div>
+
+                <!-- Desktop Actions + Mobile Menu Button -->
+                <div class="flex items-center gap-3">
+                    <div class="nav-desktop-actions hidden lg:flex items-center gap-3">
+                        <a href="#login"
+                            class="inline-flex items-center px-6 py-2.5 border-2 border-gray-800 text-gray-800 rounded-full font-semibold hover:bg-gray-800 hover:text-white transition-all duration-300 no-underline">Iniciar
+                            sessão</a>
+                        <a href="#demo"
+                            class="px-6 py-2.5 rounded-full font-semibold transition-all duration-300 hover:opacity-90 no-underline text-gray-900"
+                            style="background-color: rgb(255, 162, 49);">Reserve uma demo</a>
+                    </div>
+                    <!-- Mobile Menu Button -->
+                    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menu">
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MOBILE DRAWER OVERLAY -->
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+
+    <!-- MOBILE DRAWER -->
+    <div class="mobile-drawer" id="mobileDrawer">
+        <div class="drawer-header">
+            <a href="#" class="drawer-logo">deeto</a>
+            <button class="drawer-close" id="drawerClose" aria-label="Fechar menu">
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
+        </div>
+        <div class="drawer-content">
+            <!-- Produto com submenu -->
+            <button class="drawer-menu-item drawer-submenu-toggle" data-submenu="produto">
+                <span>Produto</span>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </button>
+            <div class="drawer-submenu" id="submenu-produto">
+                <div class="drawer-submenu-section">
+                    <div class="drawer-submenu-title">Módulos centrais</div>
+                    <a href="#coletar" class="drawer-submenu-item">
+                        <div class="drawer-submenu-icon collect"><img src="assets/icons/mic-ai-fill.svg" alt="Coletar"
+                                width="18" height="18"></div>
+                        <span>Coletar</span>
+                    </a>
+                    <a href="#gerir" class="drawer-submenu-item">
+                        <div class="drawer-submenu-icon manage"><img src="assets/icons/hand-sparkles-solid-full.svg"
+                                alt="Gerir" width="18" height="18"></div>
+                        <span>Gerir</span>
+                    </a>
+                    <a href="#distribuir" class="drawer-submenu-item">
+                        <div class="drawer-submenu-icon distribute"><img src="assets/icons/megaphone-fill.svg"
+                                alt="Distribuir" width="18" height="18"></div>
+                        <span>Distribuir</span>
+                    </a>
+                </div>
+                <div class="drawer-submenu-section">
+                    <div class="drawer-submenu-title">Plataforma</div>
+                    <a href="#integrar" class="drawer-submenu-item">
+                        <div class="drawer-submenu-icon integrate"><img src="assets/icons/hub.svg" alt="Integrar"
+                                width="18" height="18"></div>
+                        <span>Integrar</span>
+                    </a>
+                    <a href="#seguro" class="drawer-submenu-item">
+                        <div class="drawer-submenu-icon secure"><img src="assets/icons/verified.svg" alt="Seguro"
+                                width="18" height="18"></div>
+                        <span>Seguro</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Soluções com submenu -->
+            <button class="drawer-menu-item drawer-submenu-toggle" data-submenu="solucoes">
+                <span>Soluções</span>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </button>
+            <div class="drawer-submenu" id="submenu-solucoes">
+                <div class="drawer-submenu-section">
+                    <a href="#" class="drawer-submenu-item">Por Indústria</a>
+                    <a href="#" class="drawer-submenu-item">Por Função</a>
+                    <a href="#" class="drawer-submenu-item">Casos de Uso</a>
+                </div>
+            </div>
+
+            <div class="drawer-divider"></div>
+
+            <a href="#hub" class="drawer-menu-item">Deeto Hub</a>
+            <a href="#about" class="drawer-menu-item">Companhia</a>
+        </div>
+
+        <div class="drawer-divider"></div>
+
+        <div class="drawer-actions">
+            <a href="#login" class="drawer-btn-outline">Iniciar sessão</a>
+            <a href="#demo" class="drawer-btn-primary">Reserve uma demo</a>
+        </div>
+    </div>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section id="hero" class="min-h-screen py-16 overflow-hidden relative" style="background-color: #EDEAE1;">
+            <div class="container mx-auto px-4">
+                <div class="row align-items-center" style="min-height: 80vh;">
+                    <div class="col-12 col-lg-6 relative" style="z-index: 10;">
+                        <div class="inline-flex items-center gap-2 mb-6">
+                            <span class="text-xl" style="color: rgb(255, 162, 49);">&#10022;</span>
+                            <span class="text-gray-600 text-sm font-medium tracking-wider uppercase">Simples.
+                                Inteligente. Eficiente.</span>
+                        </div>
+                        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
+                            Viagens corporativas, <span class="relative">simplificadas<span
+                                    class="absolute bottom-1 left-0 w-full h-3"
+                                    style="background-color: rgba(255, 162, 49, 0.2); z-index: -1;"></span></span> com
+                            IA
+                        </h1>
+                        <p class="text-lg text-gray-600 mb-8 leading-relaxed" style="max-width: 540px;">
+                            Automatize reservas, controle gastos e otimize politicas de viagem da sua empresa em uma
+                            unica plataforma inteligente.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="#demo"
+                                class="inline-flex items-center gap-2 px-8 py-3 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl no-underline"
+                                style="background-color: rgb(255, 162, 49); color: rgb(0, 0, 0);">Agendar Demo</a>
+                            <a href="#how-it-works"
+                                class="inline-flex items-center gap-2 bg-transparent border-2 border-gray-800 text-gray-800 px-8 py-3 rounded-full font-semibold hover:bg-gray-800 hover:text-white transition-all duration-300 no-underline">
+                                <i class="fas fa-play-circle"></i> Como Funciona
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 relative mt-12 lg:mt-0">
+                        <div class="relative overflow-hidden shadow-2xl" style="border-radius: 100px;">
+                            <video src="assets/images/hero_video.mp4" autoplay muted loop playsinline
+                                disablepictureinpicture class="w-full h-auto object-cover"></video>
+                        </div>
+                        <div class="bg-gray-800 text-white p-6 rounded-2xl shadow-2xl mt-8 mx-auto"
+                            style="max-width: 380px;">
+                            <p class="text-sm leading-relaxed mb-4 italic">"Reduzimos custos em 35% no primeiro
+                                trimestre com essa plataforma incrivel."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full flex items-center justify-center"
+                                    style="background-color: rgb(255, 162, 49);">
+                                    <span class="text-white font-bold text-sm">MC</span>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-sm">Marina Costa</p>
+                                    <p class="text-gray-400 text-xs">CFO, TechCorp Brasil</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LOGO MARQUEE -->
+        <section class="py-10 overflow-hidden" style="background-color: #EDEAE1;">
+            <div class="logo-marquee-container">
+                <div class="logo-marquee">
+                    <span class="logo-item text-3xl font-bold text-gray-700">knak.</span>
+                    <span class="logo-item text-3xl font-bold text-gray-700">Webflow</span>
+                    <span class="logo-item text-3xl font-bold text-gray-700 italic">vimeo</span>
+                    <span class="logo-item text-3xl font-bold text-gray-700">Five9</span>
+                    <span class="logo-item text-2xl font-semibold text-gray-700">BEEKEEPER</span>
+                    <span class="logo-item text-3xl font-bold text-gray-700">bounti</span>
+                    <span class="logo-item text-3xl font-bold text-gray-700">knak.</span>
+                    <span class="logo-item text-3xl font-bold text-gray-700">Webflow</span>
+                    <span class="logo-item text-3xl font-bold text-gray-700 italic">vimeo</span>
+                    <span class="logo-item text-3xl font-bold text-gray-700">Five9</span>
+                    <span class="logo-item text-2xl font-semibold text-gray-700">BEEKEEPER</span>
+                    <span class="logo-item text-3xl font-bold text-gray-700">bounti</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCROLL-LOCKED FEATURES SECTION -->
+        <section id="features" class="features-section" style="background-color: #EDEAE1;">
+            <div class="features-sticky-container">
+                <div class="text-center mb-6">
+                    <span class="inline-flex items-center gap-2 text-sm font-medium text-gray-600 mb-3">
+                        <span style="color: rgb(255, 162, 49);">&#10022;</span> Por que Funciona
+                    </span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
+                        Deeto entrega <span class="relative inline-block"><span class="relative z-10">voz do
+                                cliente</span><span class="absolute bottom-1 left-0 w-full h-3"
+                                style="background-color: rgba(255, 162, 49, 0.3);"></span></span> em escala
+                    </h2>
+                </div>
+                <div class="features-content">
+                    <div class="image-side">
+                        <div class="feature-image-container">
+                            <img src="assets/images/hero_person.png" alt="Customer Advocate"
+                                class="feature-image active" data-image="1">
+                            <img src="assets/images/manager.png" alt="Sales Leader" class="feature-image"
+                                data-image="2">
+                            <img src="assets/images/woman.png" alt="Marketing Head" class="feature-image"
+                                data-image="3">
+                            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=600&h=700&fit=crop"
+                                alt="CEO" class="feature-image" data-image="4">
+                            <div class="role-badge" id="roleBadge">Customer Advocate</div>
+                        </div>
+                    </div>
+                    <div class="text-side">
+                        <div class="feature-item active" data-feature="1">
+                            <div class="flex items-start justify-between gap-4">
+                                <h3 class="feature-title">Escale o crescimento liderado pelo cliente</h3>
+                                <svg class="feature-arrow w-5 h-5 text-gray-400 flex-shrink-0 mt-1" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </div>
+                            <div class="feature-desc">
+                                <p class="text-gray-600 text-sm">Transforme a voz do cliente em um motor de crescimento
+                                    escalavel.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item" data-feature="2">
+                            <div class="flex items-start justify-between gap-4">
+                                <h3 class="feature-title">Prova sempre ativa acelera pipeline</h3>
+                                <svg class="feature-arrow w-5 h-5 text-gray-400 flex-shrink-0 mt-1" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </div>
+                            <div class="feature-desc">
+                                <p class="text-gray-600 text-sm">Os compradores avancam mais rapido com provas
+                                    confiaveis.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item" data-feature="3">
+                            <div class="flex items-start justify-between gap-4">
+                                <h3 class="feature-title">Construa uma marca confiavel</h3>
+                                <svg class="feature-arrow w-5 h-5 text-gray-400 flex-shrink-0 mt-1" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </div>
+                            <div class="feature-desc">
+                                <p class="text-gray-600 text-sm">Seus clientes sao seu melhor ativo de marca.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item" data-feature="4">
+                            <div class="flex items-start justify-between gap-4">
+                                <h3 class="feature-title">Inovacao e vantagem no mercado</h3>
+                                <svg class="feature-arrow w-5 h-5 text-gray-400 flex-shrink-0 mt-1" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </div>
+                            <div class="feature-desc">
+                                <p class="text-gray-600 text-sm">Otimos produtos comecam com input do mundo real.</p>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <a href="#how-it-works"
+                                class="inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-full font-semibold hover:bg-gray-800 transition-all duration-300 no-underline">Como
+                                funciona</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HOW DEETO WORKS SECTION -->
+        <section id="how-it-works" class="py-16" style="background-color: #EDEAE1; padding-top: 200px;">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
+                        Como o Deeto trabalha,<br>
+                        simples, inteligente, <span class="relative inline-block"><span
+                                class="relative z-10">escalonavel</span><span
+                                class="absolute bottom-2 left-0 w-full h-3"
+                                style="background-color: rgba(255, 162, 49, 0.3);"></span></span>
+                    </h2>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-12 col-lg-5 mb-8 lg:mb-0">
+                        <div class="how-accordion-item active" data-how="1">
+                            <div class="how-accordion-header">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-xl">&#128205;</span>
+                                    <h4 class="font-bold text-lg text-gray-900 m-0">Coletar</h4>
+                                </div>
+                                <svg class="how-arrow w-5 h-5 text-gray-600" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-2">Traga vozes que importam</p>
+                            <div class="how-accordion-content">
+                                <p class="text-gray-600 text-sm leading-relaxed">A Deeto ajuda voce a coletar cotacoes,
+                                    avaliacoes e feedback por meio de divulgacao, prompts no aplicativo ou sinais de
+                                    CRM.</p>
+                            </div>
+                        </div>
+                        <div class="how-accordion-item" data-how="2">
+                            <div class="how-accordion-header">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-xl">&#128221;</span>
+                                    <h4 class="font-bold text-lg text-gray-900 m-0">Gerir</h4>
+                                </div>
+                                <svg class="how-arrow w-5 h-5 text-gray-600" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-2">Transforme a entrada em impacto</p>
+                            <div class="how-accordion-content">
+                                <p class="text-gray-600 text-sm leading-relaxed">Organize, categorize e aprove conteudo
+                                    de clientes em um hub centralizado.</p>
+                            </div>
+                        </div>
+                        <div class="how-accordion-item" data-how="3">
+                            <div class="how-accordion-header">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-xl">&#128226;</span>
+                                    <h4 class="font-bold text-lg text-gray-900 m-0">Distribuir</h4>
+                                </div>
+                                <svg class="how-arrow w-5 h-5 text-gray-600" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-2">Coloque a voz do cliente em movimento</p>
+                            <div class="how-accordion-content">
+                                <p class="text-gray-600 text-sm leading-relaxed">Distribua provas sociais para vendas,
+                                    marketing e produto.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-7">
+                        <img src="assets/images/card_new.png" alt="Deeto Platform"
+                            class="w-full h-auto rounded-3xl shadow-2xl">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="row g-5">
+                <div class="col-12 col-md-6 col-lg-3">
+                    <a href="#" class="text-2xl font-bold text-white no-underline">deeto<span
+                            style="color: rgb(255, 162, 49);">.</span></a>
+                    <p class="mt-4 text-gray-400 text-sm leading-relaxed">Transformando a gestao de viagens corporativas
+                        com inteligencia.</p>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <h5 class="font-semibold text-white mb-4">Produto</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#"
+                                class="text-gray-400 hover:text-orange-400 no-underline text-sm">Recursos</a></li>
+                        <li class="mb-2"><a href="#"
+                                class="text-gray-400 hover:text-orange-400 no-underline text-sm">Integracoes</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <h5 class="font-semibold text-white mb-4">Empresa</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#"
+                                class="text-gray-400 hover:text-orange-400 no-underline text-sm">Sobre Nos</a></li>
+                        <li class="mb-2"><a href="#"
+                                class="text-gray-400 hover:text-orange-400 no-underline text-sm">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <h5 class="font-semibold text-white mb-4">Legal</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#"
+                                class="text-gray-400 hover:text-orange-400 no-underline text-sm">Privacidade</a></li>
+                        <li class="mb-2"><a href="#"
+                                class="text-gray-400 hover:text-orange-400 no-underline text-sm">LGPD</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+                <p class="text-gray-500 text-sm">2024 Deeto. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // ===== MOBILE DRAWER =====
+            var mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            var mobileDrawer = document.getElementById('mobileDrawer');
+            var drawerOverlay = document.getElementById('drawerOverlay');
+            var drawerClose = document.getElementById('drawerClose');
+
+            function openDrawer() {
+                mobileMenuBtn.classList.add('active');
+                mobileDrawer.classList.add('active');
+                drawerOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeDrawer() {
+                mobileMenuBtn.classList.remove('active');
+                mobileDrawer.classList.remove('active');
+                drawerOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            mobileMenuBtn.addEventListener('click', openDrawer);
+            drawerClose.addEventListener('click', closeDrawer);
+            drawerOverlay.addEventListener('click', closeDrawer);
+
+            // Submenu toggles no drawer
+            var submenuToggles = document.querySelectorAll('.drawer-submenu-toggle');
+            submenuToggles.forEach(function (toggle) {
+                toggle.addEventListener('click', function () {
+                    var submenuId = 'submenu-' + this.dataset.submenu;
+                    var submenu = document.getElementById(submenuId);
+                    this.classList.toggle('active');
+                    submenu.classList.toggle('active');
+                });
+            });
+
+            // Fechar drawer ao clicar em link
+            var drawerLinks = document.querySelectorAll('.drawer-menu-item:not(.drawer-submenu-toggle), .drawer-submenu-item, .drawer-btn-outline, .drawer-btn-primary');
+            drawerLinks.forEach(function (link) {
+                link.addEventListener('click', closeDrawer);
+            });
+
+            // ===== FEATURES SCROLL =====
+            var section = document.getElementById('features');
+            var featureItems = document.querySelectorAll('.feature-item');
+            var featureImages = document.querySelectorAll('.feature-image');
+            var roleBadge = document.getElementById('roleBadge');
+            var roles = ['Customer Advocate', 'Sales Leader', 'Marketing Head', 'CEO'];
+            var currentActive = 0;
+            var totalItems = 4;
+
+            function updateActive(index) {
+                if (index === currentActive) return;
+                currentActive = index;
+                featureItems.forEach(function (item, i) { item.classList.toggle('active', i === index); });
+                featureImages.forEach(function (img, i) { img.classList.toggle('active', i === index); });
+                roleBadge.textContent = roles[index];
+            }
+
+            function handleScroll() {
+                var rect = section.getBoundingClientRect();
+                var sectionHeight = section.offsetHeight;
+                var viewportHeight = window.innerHeight;
+                var scrollProgress = -rect.top / (sectionHeight - viewportHeight);
+                scrollProgress = Math.max(0, Math.min(1, scrollProgress));
+                var activeIndex = Math.floor(scrollProgress * totalItems);
+                activeIndex = Math.min(activeIndex, totalItems - 1);
+                updateActive(activeIndex);
+            }
+
+            var ticking = false;
+            window.addEventListener('scroll', function () {
+                if (!ticking) {
+                    window.requestAnimationFrame(function () { handleScroll(); ticking = false; });
+                    ticking = true;
+                }
+            });
+            handleScroll();
+
+            featureItems.forEach(function (item, index) {
+                item.addEventListener('click', function () { updateActive(index); });
+            });
+
+            // ===== HOW IT WORKS ACCORDION =====
+            var howItems = document.querySelectorAll('.how-accordion-item');
+            howItems.forEach(function (item) {
+                item.addEventListener('click', function () {
+                    howItems.forEach(function (i) { i.classList.remove('active'); });
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

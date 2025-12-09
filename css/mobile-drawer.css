@@ -1,0 +1,278 @@
+/* ============================================
+   MOBILE DRAWER / MENU HAMBURGUER
+   ============================================ */
+
+/* Botão Hamburger */
+.mobile-menu-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 1001;
+    position: relative;
+}
+
+.hamburger-line {
+    width: 24px;
+    height: 2px;
+    background-color: #1f2937;
+    transition: all 0.3s ease;
+    margin: 3px 0;
+    border-radius: 2px;
+}
+
+/* Esconder botão hamburguer quando drawer está aberto */
+.mobile-menu-btn.active {
+    display: none !important;
+}
+
+/* Overlay escuro */
+.drawer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 999;
+}
+
+.drawer-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Drawer principal */
+.mobile-drawer {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 320px;
+    max-width: 85vw;
+    height: 100vh;
+    background: white;
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+    padding: 0;
+}
+
+.mobile-drawer.active {
+    right: 0;
+}
+
+/* Header do drawer */
+.drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.drawer-logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1f2937;
+    text-decoration: none;
+}
+
+.drawer-close {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: #f3f4f6;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+}
+
+.drawer-close:hover {
+    background: #e5e7eb;
+}
+
+/* Conteúdo do drawer */
+.drawer-content {
+    padding: 16px 0;
+}
+
+/* Item do menu no drawer */
+.drawer-menu-item {
+    display: block;
+    padding: 16px 24px;
+    color: #374151;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+    transition: background 0.2s ease;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+}
+
+.drawer-menu-item:hover {
+    background: #f9fafb;
+    color: #1f2937;
+}
+
+/* Expandir menu no drawer */
+.drawer-submenu-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.drawer-submenu-toggle svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+}
+
+.drawer-submenu-toggle.active svg {
+    transform: rotate(180deg);
+}
+
+/* Submenu no drawer */
+.drawer-submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    background: #f9fafb;
+}
+
+.drawer-submenu.active {
+    max-height: 500px;
+}
+
+.drawer-submenu-section {
+    padding: 16px 24px;
+}
+
+.drawer-submenu-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+}
+
+.drawer-submenu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    color: #374151;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s ease;
+}
+
+.drawer-submenu-item:hover {
+    color: #1f2937;
+}
+
+.drawer-submenu-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    background: transparent;
+}
+
+/* Ícones sem fundo colorido */
+.drawer-submenu-icon.collect,
+.drawer-submenu-icon.manage,
+.drawer-submenu-icon.distribute,
+.drawer-submenu-icon.integrate,
+.drawer-submenu-icon.secure {
+    background: transparent;
+}
+
+/* Separador */
+.drawer-divider {
+    height: 1px;
+    background: #f3f4f6;
+    margin: 12px 24px;
+}
+
+/* Botões de ação */
+.drawer-actions {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.drawer-btn-outline {
+    display: block;
+    text-align: center;
+    padding: 14px 24px;
+    border: 2px solid #1f2937;
+    color: #1f2937;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.drawer-btn-outline:hover {
+    background: #1f2937;
+    color: white;
+}
+
+.drawer-btn-primary {
+    display: block;
+    text-align: center;
+    padding: 14px 24px;
+    background: #FFA231;
+    color: #1f2937;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.drawer-btn-primary:hover {
+    opacity: 0.9;
+}
+
+/* ============================================
+   RESPONSIVO - Mostrar hamburger em mobile
+   ============================================ */
+@media (max-width: 1024px) {
+    .mobile-menu-btn {
+        display: flex;
+    }
+
+    /* Esconder botões de ação do header em tablet/mobile */
+    .nav-desktop-actions {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .mobile-drawer {
+        width: 100%;
+        max-width: 100%;
+    }
+}

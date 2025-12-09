@@ -1,0 +1,189 @@
+/* ========================================
+   Component: Cards
+   ======================================== */
+
+/* ===== BASE CARD ===== */
+.card {
+    background-color: var(--color-bg-white);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    transition: all var(--transition-normal);
+}
+
+.card:hover {
+    box-shadow: var(--shadow-xl);
+    transform: translateY(-4px);
+}
+
+.card-body {
+    padding: var(--spacing-6);
+}
+
+.card-header {
+    padding: var(--spacing-6) var(--spacing-6) 0;
+}
+
+.card-footer {
+    padding: 0 var(--spacing-6) var(--spacing-6);
+}
+
+/* ===== CARD VARIANTS ===== */
+
+/* Dark Card */
+.card-dark {
+    background-color: var(--color-bg-card);
+    color: var(--color-text-white);
+}
+
+.card-dark p {
+    color: var(--color-text-muted);
+}
+
+/* Bordered Card */
+.card-bordered {
+    border: 1px solid var(--color-border-light);
+    box-shadow: none;
+}
+
+.card-bordered:hover {
+    border-color: var(--color-accent);
+}
+
+/* Glass Card */
+.card-glass {
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* ===== TESTIMONIAL CARD ===== */
+.testimonial-card {
+    background-color: var(--color-bg-card);
+    color: var(--color-text-white);
+    padding: var(--spacing-6);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-2xl);
+    max-width: 18rem;
+}
+
+.testimonial-text {
+    font-size: var(--font-size-sm);
+    font-style: italic;
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--spacing-4);
+    color: var(--color-text-white);
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+}
+
+.testimonial-avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: var(--color-accent);
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-white);
+}
+
+.testimonial-name {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-white);
+}
+
+.testimonial-role {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+}
+
+/* ===== STATS CARD ===== */
+.stats-card {
+    background-color: var(--color-bg-white);
+    padding: var(--spacing-4);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+}
+
+.stats-card-inner {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+}
+
+.stats-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-xl);
+}
+
+.stats-icon--success {
+    background-color: var(--color-success-light);
+    color: var(--color-success);
+}
+
+.stats-icon--warning {
+    background-color: var(--color-warning-light);
+    color: var(--color-warning);
+}
+
+.stats-icon--info {
+    background-color: var(--color-info-light);
+    color: var(--color-info);
+}
+
+.stats-value {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-dark);
+    line-height: 1;
+}
+
+.stats-label {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-light);
+    margin-top: var(--spacing-1);
+}
+
+/* ===== FEATURE CARD ===== */
+.feature-card {
+    padding: var(--spacing-8);
+    text-align: center;
+}
+
+.feature-icon {
+    width: 4rem;
+    height: 4rem;
+    margin: 0 auto var(--spacing-4);
+    background-color: var(--color-accent-light);
+    border-radius: var(--radius-2xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-2xl);
+    color: var(--color-accent);
+}
+
+.feature-title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-dark);
+    margin-bottom: var(--spacing-3);
+}
+
+.feature-desc {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-medium);
+}

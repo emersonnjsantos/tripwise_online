@@ -1,0 +1,188 @@
+/* ============================================
+   MEGA MENU DROPDOWN STYLES
+   ============================================ */
+
+/* Container do dropdown */
+.nav-dropdown-container {
+    position: relative;
+}
+
+/* Mega Menu Principal */
+.mega-menu {
+    position: fixed;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.2);
+    padding: 36px 40px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    min-width: 900px;
+    max-width: 950px;
+    pointer-events: none;
+}
+
+/* Mostrar mega menu no hover */
+.nav-dropdown-container:hover .mega-menu,
+.mega-menu:hover {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+}
+
+/* Grid de 3 colunas */
+.mega-menu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.2fr;
+    gap: 40px;
+}
+
+/* Títulos das colunas */
+.mega-menu-column h4 {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 20px;
+}
+
+/* Itens do menu */
+.mega-menu-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 12px;
+    border-radius: 12px;
+    transition: background 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.mega-menu-item:hover {
+    background: #f9fafb;
+}
+
+/* Ícones do menu */
+.mega-menu-icon {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    background: transparent;
+}
+
+/* Ícones sem fundo colorido */
+.mega-menu-icon.collect,
+.mega-menu-icon.manage,
+.mega-menu-icon.distribute,
+.mega-menu-icon.integrate,
+.mega-menu-icon.secure {
+    background: transparent;
+}
+
+/* Conteúdo dos itens */
+.mega-menu-item-content h5 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0 0 4px 0;
+}
+
+.mega-menu-item-content p {
+    font-size: 13px;
+    color: #6b7280;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* ============================================
+   RECURSOS EM DESTAQUE (Featured Resources)
+   ============================================ */
+.featured-resource {
+    display: flex;
+    gap: 14px;
+    padding: 12px;
+    border-radius: 12px;
+    transition: background 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.featured-resource:hover {
+    background: #f9fafb;
+}
+
+.featured-resource-image {
+    width: 80px;
+    height: 60px;
+    min-width: 80px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.featured-resource-content h5 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0 0 8px 0;
+    line-height: 1.4;
+}
+
+.featured-resource-link {
+    font-size: 13px;
+    color: #f59e0b;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.featured-resource-link:hover {
+    text-decoration: underline;
+}
+
+/* ============================================
+   ANIMAÇÃO DO BOTÃO DROPDOWN
+   ============================================ */
+.nav-dropdown-btn {
+    position: relative;
+}
+
+.nav-dropdown-btn svg {
+    transition: transform 0.3s ease;
+}
+
+.nav-dropdown-container:hover .nav-dropdown-btn svg {
+    transform: rotate(180deg);
+}
+
+/* ============================================
+   RESPONSIVIDADE
+   ============================================ */
+@media (max-width: 1024px) {
+    .mega-menu {
+        min-width: 700px;
+        padding: 24px;
+    }
+
+    .mega-menu-grid {
+        gap: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .mega-menu {
+        display: none;
+    }
+}

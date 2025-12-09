@@ -1,0 +1,22 @@
+/* ========================================
+   TripWise - Main Stylesheet
+   Imports all modules in correct order
+   ======================================== */
+
+/* 1. Variables (Design Tokens) - Must be first */
+@import 'variables.css';
+
+/* 2. Base Styles (Reset + Typography) */
+@import 'base.css';
+
+/* 3. Components */
+@import 'components/buttons.css';
+@import 'components/navbar.css';
+@import 'components/cards.css';
+@import 'components/footer.css';
+
+/* 4. Sections */
+@import 'sections/hero.css';
+
+/* 5. Utilities (Optional - add as needed) */
+/* @import 'utilities.css'; */
